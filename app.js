@@ -1,10 +1,8 @@
 // book Constructor
-class Book {
-    constructor(title, author, isbn) {
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-    }
+function Book(title, author, isbn) {
+    this.title = title;
+    this.author = author;
+    this.isbn = isbn;
 }
 
 // UI Constructor
@@ -42,6 +40,12 @@ UI.prototype.showAlert = function(message, className){
         document.querySelector('.alert').remove();
     }, 3000);
 }
+//Delete book
+UI.prototype.deleteBook = function(target){
+    if(target.className === 'delete'){
+        target.parentElement.parentElement.remove();
+    }
+}
 //Clear fields function
 
 UI.prototype.clearFields = function(){
@@ -78,3 +82,15 @@ document.getElementById('book-form').addEventListener('submit',
     e.preventDefault();
    }
 );
+//event lsitener for delete
+
+document.getElementById('book-list').addEventListener('click', function(e){
+
+    const ui = new UI();
+    ui.deleteBook(e.target);
+
+    //show message
+    ui.showAlert('Book removed', 'success')
+    
+    e.preventDefault();
+});
